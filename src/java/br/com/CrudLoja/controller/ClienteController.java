@@ -70,6 +70,21 @@ public class ClienteController extends HttpServlet {
         request.getRequestDispatcher("listarClientes.jsp").forward(request, response);
     }
     
+    private void buscarClientes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String filtro = request.getParameter("filtro");
+        List<Cliente> lista;
+
+        if (filtro != null && !filtro.trim().isEmpty()) {
+            lista = clienteDAO.buscarPorNomeOuCpf(filtro);
+        } else {
+            lista = clienteDAO.listar();
+        }
+
+        request.setAttribute("listaClientes", lista);
+        request.getRequestDispatcher("listarClientes.jsp").forward(request, response);
+    }
+
+    
     private void inserirCliente(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Cliente cliente = new Cliente();
         cliente.setNome(request.getParameter("nome"));
