@@ -64,6 +64,11 @@ public class ClienteController extends HttpServlet {
         }
     
 }
+    private void listarClientes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Cliente> lista = clienteDAO.listar();
+        request.setAttribute("listaClientes", lista);
+        request.getRequestDispatcher("listarClientes.jsp").forward(request, response);
+    }
     
     private void inserirCliente(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Cliente cliente = new Cliente();
