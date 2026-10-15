@@ -1,13 +1,33 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package br.com.CrudLoja.util;
 
-/**
- *
- * @author kison
- */
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class ConexaoBanco {
+    private static final String URL = "jdbc:postgresql://localhost:5432/crudloja";
+    private static final String USUARIO = "postgres";
+    private static final String SENHA = "12345678";
+    public static Connection conectar() {
+        try {
+            Class.forName("org.postgresql.Driver");
+            return DriverManager.getConnection(URL, USUARIO, SENHA);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Driver PostgreSQL não encontrado.", e);
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao conectar com o banco.", e);
+        }
+    }
     
+    public static void fechar(Connection con) {
+        try {
+            if (con != null) {
+                con.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao fechar conexão.");
+        }
+    }
 }
+
