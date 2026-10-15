@@ -114,6 +114,36 @@ public class ClienteDAO {
             System.err.println("Erro ao deletar cliente: " + e.getMessage());
         }
     }
+    
+    public List<Cliente> buscarPorNomeOuCpf(String filtro) {
+        String sql = "SELECT * FROM clientes WHERE nome LIKE ? OR cpf LIKE ? ORDER BY id";
+        List<Cliente> clientes = new ArrayList<>();
 
+        try (Connection conn = ConexaoBanco.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            String termo = "%" + filtro + "%";
+            stmt.setString(1, termo);
+            stmt.setString(2, termo);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Cliente cliente = new Cliente(
+                            rs.getInt("id"),
+                            rs.getString("nome"),
+                            rs.getString("endereco"),
+                            rs.getString("cep"),
+                            rs.getString("cpf"),
+                            rs.getString("rg"),
+                            rs.getString("email"),
+                            rs.getString("telefone")
+                    );
+                    clientes.add(cliente);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar clientes: " + e.getMessage());
+        }
+        return clientes;
+    }
     
 }
