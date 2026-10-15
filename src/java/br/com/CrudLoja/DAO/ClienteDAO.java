@@ -30,7 +30,7 @@ public class ClienteDAO {
     }
     
     public List<Cliente> listar() {
-        String sql = "SELECT * FROM clientes ORDER BY id";
+        String sql = "SELECT * FROM clientes ORDER BY nome";
         List<Cliente> clientes = new ArrayList<>();
         
         try (Connection conn = ConexaoBanco.conectar();
@@ -55,5 +55,35 @@ public class ClienteDAO {
         }
         return clientes;
     }
+    
+    public Cliente buscarPorNome(int nome) {
+        String sql = "SELECT * FROM clientes WHERE nome = ?";
+        Cliente cliente = null;
+        
+        try (Connection conn = ConexaoBanco.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setInt(1, nome);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    cliente = new Cliente(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("endereco"),
+                        rs.getString("cep"),
+                        rs.getString("cpf"),
+                        rs.getString("rg"),
+                        rs.getString("email"),
+                        rs.getString("telefone")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar cliente por Nome: " + e.getMessage());
+        }
+        return cliente;
+    }
+    
+    
     
 }
