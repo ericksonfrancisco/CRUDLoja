@@ -101,6 +101,12 @@ public class ClienteController extends HttpServlet {
         response.sendRedirect("ClienteController?acao=listar");
     }
     
+    private void deletarCliente(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        clienteDAO.deletar(id);
+        response.sendRedirect("ClienteController?acao=listar");
+    }
+
     
     
 }
