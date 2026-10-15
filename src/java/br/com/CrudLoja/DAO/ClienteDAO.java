@@ -56,14 +56,14 @@ public class ClienteDAO {
         return clientes;
     }
     
-    public Cliente buscarPorNome(int nome) {
-        String sql = "SELECT * FROM clientes WHERE nome = ?";
+    public Cliente buscarPorId(int id) {
+        String sql = "SELECT * FROM clientes WHERE id = ?";
         Cliente cliente = null;
         
         try (Connection conn = ConexaoBanco.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
-            stmt.setInt(1, nome);
+            stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     cliente = new Cliente(
@@ -79,7 +79,7 @@ public class ClienteDAO {
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Erro ao buscar cliente por Nome: " + e.getMessage());
+            System.err.println("Erro ao buscar cliente por ID: " + e.getMessage());
         }
         return cliente;
     }
@@ -102,5 +102,18 @@ public class ClienteDAO {
             System.err.println("Erro ao atualizar cliente: " + e.getMessage());
         }
     }
+    
+    public void deletar(int id) {
+        String sql = "DELETE FROM clientes WHERE id = ?";
+        try (Connection conn = ConexaoBanco.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao deletar cliente: " + e.getMessage());
+        }
+    }
+
     
 }
