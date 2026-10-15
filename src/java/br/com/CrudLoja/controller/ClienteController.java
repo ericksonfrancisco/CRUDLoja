@@ -106,6 +106,14 @@ public class ClienteController extends HttpServlet {
         clienteDAO.deletar(id);
         response.sendRedirect("ClienteController?acao=listar");
     }
+    
+    private void carregarClienteParaEdicao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Cliente cliente = clienteDAO.buscarPorId(id);
+        
+        request.setAttribute("cliente", cliente);
+        request.getRequestDispatcher("formCliente.jsp").forward(request, response);
+    }
 
     
     
