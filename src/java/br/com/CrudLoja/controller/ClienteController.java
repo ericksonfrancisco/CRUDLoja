@@ -84,6 +84,23 @@ public class ClienteController extends HttpServlet {
         response.sendRedirect("ClienteController?acao=listar");
     }
     
+    private void atualizarCliente(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+
+        Cliente cliente = new Cliente();
+        cliente.setId(id);
+        cliente.setNome(request.getParameter("nome"));
+        cliente.setEndereco(request.getParameter("endereco"));
+        cliente.setCep(request.getParameter("cep"));
+        cliente.setCpf(request.getParameter("cpf"));
+        cliente.setRg(request.getParameter("rg"));
+        cliente.setEmail(request.getParameter("email"));
+        cliente.setTelefone(request.getParameter("telefone"));
+
+        clienteDAO.atualizar(cliente);
+        response.sendRedirect("ClienteController?acao=listar");
+    }
+    
     
     
 }
