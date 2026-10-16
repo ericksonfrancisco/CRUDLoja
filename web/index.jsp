@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -27,12 +28,13 @@
                             Gerencie o cadastro de clientes da sua loja de forma rápida, organizada e segura. Utilize os atalhos abaixo para começar.
                         </p>
                         <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
-                            <a href="${pageContext.request.contextPath}/ClienteController?acao=listar" class="btn btn-primary btn-lg px-4 gap-3 shadow-sm">
-                                Consultar / Listar Clientes
+                            <a href="listarClientes.jsp" class="btn btn-primary btn-lg px-4 gap-3 shadow-sm">
+                                Clientes Cadastrados
                             </a>
                             <a href="formCliente.jsp" class="btn btn-outline-success btn-lg px-4 shadow-sm">
                                 Cadastrar Novo Cliente
                             </a>
+                            
                         </div>
                     </div>
                 </div>

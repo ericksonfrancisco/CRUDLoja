@@ -14,7 +14,11 @@
         <div class="container my-5">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2>Consulta de Clientes</h2>
-                <a href="formCliente.jsp" class="btn btn-primary">+ Novo Cliente</a>
+                <div> <!-- comment -->
+                    <a href="formCliente.jsp" class="btn btn-primary">+ Novo Cliente</a>
+                    <a href="${pageContext.request.contextPath}/ClienteController?acao=listarClientes" class="btn btn-primary">
+                Consultar / Listar Clientes</a>
+                </div>
             </div>
 
             <!-- Formulário de Busca por Nome ou CPF -->
